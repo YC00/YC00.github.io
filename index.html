@@ -5,16 +5,16 @@
 
 <form action="https://m606akoo24.execute-api.us-east-1.amazonaws.com/prod/LineBotEchoPush" method="post">
   Message訊息:<br>
-  <input type="hidden" name="id" value="">
-  <input type="text" name="message" value="">
+  <input type="hidden" name="id" id="id" value="">
+  <input type="text" name="message" id="message" value="">
   <br><br>
   <input type="submit" value="Submit">
 </form> 
 <script>
 var url_string = window.location.href; //window.location.href
 var url = new URL(url_string);
-var c = url.searchParams.get("id");
-console.log(c);
+var id = url.searchParams.get("id");
+document.getElementById("id").value = id;
 </script>
 </body>
 </html>
