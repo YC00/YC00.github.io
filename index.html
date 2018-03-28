@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <body>
+<h2>匿名LineBot訊息</h2>
 
-<h2>HTML Forms</h2>
-
-<form action="/action_page.php">
-  First name:<br>
-  <input type="text" name="firstname" value="Mickey">
-  <br>
-  Last name:<br>
-  <input type="text" name="lastname" value="Mouse">
+<form action="https://m606akoo24.execute-api.us-east-1.amazonaws.com/prod/LineBotEchoPush" method="post">
+  Message訊息:<br>
+  <input type="hidden" name="id" value="">
+  <input type="text" name="message" value="">
   <br><br>
   <input type="submit" value="Submit">
 </form> 
-
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
-
+<script>
+var url_string = window.location.href; //window.location.href
+var url = new URL(url_string);
+var c = url.searchParams.get("id");
+console.log(c);
+</script>
 </body>
 </html>
