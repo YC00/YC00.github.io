@@ -30,10 +30,13 @@ var romanToInt = function(s) {
     }
     return sum;
 };
-alert(romanToInt('XI'));
+document.getElementById("number").addEventListener("click", function(){
+    alert(romanToInt(this.value));
+});
 </script>
 </head>
 <body>
-
+Roman To Int: <input type="text" id="number" />
+<br />
 </body>
 </html>
