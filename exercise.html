@@ -54,16 +54,18 @@ var reverseVowels = function(s){
 }
     
 function calc1(){
-    alert(romanToInt(document.getElementById("number").value));
+    alert(romanToInt(document.getElementById("number1").value));
 };
 
 function calc2(){
-    alert(reverseVowels("Hello"));
+    alert(reverseVowels(document.getElementById("number2").value));
 }
 </script>
 </head>
 <body>
-    Roman To Int: <input type="text" id="number" /><button onclick="calc1()">Submit</button>
+    Roman To Int: <input type="text" id="number1" /><button onclick="calc1()">Submit</button><br />
 <br />
+	
+    Reverse Vowels: <input type="text" id="number2" /><button onclick="calc2()">Submit</button><br />
 </body>
 </html>
