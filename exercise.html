@@ -31,27 +31,30 @@ var romanToInt = function(s) {
     return sum;
 };
 
-var reverseVowels = function(s){
-	var vowels = [];
-	
-	for(var i = 0 ; i < s.length ; i++){
-		if((/^[aeiou]$/i).test(s[i])){
-			vowels.push(s[i]);
-		}
-	}
-	
-	var v = vowels.length - 1;
-	
-	var sAry = s.split("");
-	
-	for(var j = 0 ; j < sAry.length ; j++){
-		if((/^[aeiou]$/i).test(sAry[i])){
-			sAry[j] = vowels[v--];
-		}
-	}
-	
-	return sAry.join("");
-}
+var reverseVowels = function(s) {
+
+    var vowels = [];  // 儲存找到的母音
+
+    // 找母音
+    for(var i = 0 ; i< s.length ; i++){
+        if((/^[aeiou]$/i).test(s[i])){
+            vowels.push(s[i]);
+        }    
+    }
+
+    var v = vowels.length - 1;
+    // 因為之前是用array儲存找到的母音，所以把本來的字串也轉成array
+    var sAry = s.split("");
+
+    // 用之前找到的array取代母音
+    for(var j = 0 ; j < sAry.length ; j++){
+        if((/^[aeiou]$/i).test(sAry[j])){
+            sAry[j] = vowels[v--];
+        }    
+    }
+
+    return sAry.join("");
+};
     
 function calc1(){
     alert(romanToInt(document.getElementById("number1").value));
