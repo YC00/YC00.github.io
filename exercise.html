@@ -31,10 +31,35 @@ var romanToInt = function(s) {
     return sum;
 };
 
+var reverseVowels = function(s){
+	var vowels = [];
+	
+	for(var i = 0 ; i < s.length ; i++){
+		if((/^[aeiou]$/i).test(s[i])){
+			vowels.push(s[i]);
+		}
+	}
+	
+	var v = vowels.length - 1;
+	
+	var sAry = s.split("");
+	
+	for(var j = 0 ; j < sAry.length ; j++){
+		if((/^[aeiou]$/i).test(sAry[i])){
+			sAry[i] = vowels[v--];
+		}
+	}
+	
+	return sAry.join("");
+}
+    
 function calc1(){
     alert(romanToInt(document.getElementById("number").value));
 };
 
+function calc2(){
+    alert(reverseVowels("Hello"));
+}
 </script>
 </head>
 <body>
