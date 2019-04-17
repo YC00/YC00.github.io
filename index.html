@@ -31,7 +31,7 @@
 
       window.addEventListener('load', function() {
         if('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('/YC00.github.io/sw.js', {scope: '/YC00.github.io/'})
             .then(function(reg) {
               // firebase methods，用同一支sw.js
               messaging.useServiceWorker(reg);
