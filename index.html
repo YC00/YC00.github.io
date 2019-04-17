@@ -1,20 +1,91 @@
+
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<body>
+  <head>
+    <title>Medium Augustus FCM web push demo code</title>
+    <link rel="canonical" href="https://medium.com/@augustus0818/firebase-cloud-messaging-web-push-8ebf09e6b15b">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  </head>
+  <body>
 
-<form action="https://m606akoo24.execute-api.us-east-1.amazonaws.com/prod/LineBotEchoPush" method="post">
-  Message訊息:<br>
-  <input type="hidden" name="id" id="id" value="" />
-  <textarea rows="4" cols="50" name="message" id="message"></textarea>
-  <br><br>
-  <input type="submit" value="Submit">
-</form> 
-<script>
-var url_string = window.location.href; //window.location.href
-var url = new URL(url_string);
-var id = url.searchParams.get("id");
-document.getElementById("id").value = id;
-</script>
-</body>
+
+
+    <!-- firebase config -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+      // 從firebase後台可以取得config
+      var config = {
+        apiKey: "AIzaSyC3s25V7EyPyu7dD5DoJvdL9uCV2YJQIIU",
+        authDomain: "newagent-2e93e.firebaseapp.com",
+        databaseURL: "https://newagent-2e93e.firebaseio.com",
+        projectId: "newagent-2e93e",
+        storageBucket: "newagent-2e93e.appspot.com",
+        messagingSenderId: "606957907574"
+      };
+      firebase.initializeApp(config);
+      var database = firebase.database();
+      var messaging = firebase.messaging();
+      messaging.usePublicVapidKey('BD2M5DYC98vonBG3D0vCHtNiosPLSpOJxzdxGrLUvQ9jjIXhCMB6Ver8tL_Eefw13zWoyQlUHaP1POSar6VSs_M');
+
+      window.addEventListener('load', function() {
+        if('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+              // firebase methods，用同一支sw.js
+              messaging.useServiceWorker(reg);
+            })
+            // 註冊失敗
+            .catch(function(err) {
+              console.log('error: ', err);
+            });
+        }
+      
+        messaging.requestPermission().then(function() {
+      
+          // 先判斷cookies有沒有token，沒有再取token
+          var ckv = document.cookie.replace(/(?:(?:^|.*;\\s*)augustusWsPush\s*\=\s*([^;]*).*$)|^.*$/, "$1") || null;
+      
+          // cookies不存在，跟使用者要求通知權限
+          if(ckv === null) {
+            // 拿到token，firebase-messaging-sw.js 就會存 Service Workers 裡
+            messaging.getToken().then(function(currentToken) {
+      
+              // token存至firebase
+              var id = currentToken.split(':')[0];
+              firebase.database().ref('pushUsers/' + id).set({'token': currentToken});
+      
+              // token存至cookies
+              document.cookie = "augustusWsPush=" + currentToken;
+
+            });
+          }
+          // cookies 已存在，從 cookies 取出後傳至 firebase
+          else {
+            var id = ckv.split(':')[0];
+            firebase.database().ref('pushUsers/' + id).set({'token': ckv});      
+          }
+      
+          // 頁面是開啟的狀態下，改用 firebase onMessage()
+          messaging.onMessage(function(payload) {
+            var msgTitle = payload.data.title;
+            var url = payload.data.click_action;
+            var notification = new Notification(msgTitle, payload.data);
+      
+            // 點擊推播後要連去哪
+            notification.addEventListener('click', function() {
+              e.preventDefault();
+              location.href = url;
+            });
+          });
+      
+        }).catch(function(err) {
+          console.log('使用者未允許通知', err);
+        });
+      
+      });
+    </script>
+    
+  </body>
 </html>
