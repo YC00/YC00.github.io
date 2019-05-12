@@ -1,7 +1,18 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
-<h2>匿名LineBot訊息</h2>
-
 <form action="https://m606akoo24.execute-api.us-east-1.amazonaws.com/prod/LineBotEchoPush" method="post">
   Message訊息:<br>
+  <input type="hidden" name="id" id="id" value="" />
+  <textarea rows="4" cols="50" name="message" id="message"></textarea>
+  <br><br>
+  <input type="submit" value="Submit">
+</form> 
+<script>
+var url_string = window.location.href; //window.location.href
+var url = new URL(url_string);
+var id = url.searchParams.get("id");
+document.getElementById("id").value = id;
+</script>
+</body>
+</html>
