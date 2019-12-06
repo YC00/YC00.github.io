@@ -24,7 +24,7 @@ window.pAsyncInit = function() {
         }
     //get board info
     var pins = [];
-    PDK.request('/v1/me/', function (response) {
+    PDK.me('pins', function (response) {
       if (!response || response.error) {
         //alert('Error occurred');
       } else {
