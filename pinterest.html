@@ -37,7 +37,7 @@ window.pAsyncInit = function() {
                 PDK.logout();
           }*/
           var pins = [];
-          console.log(response);
+          console.log(JSON.stringify(response));
           PDK.request('/boards/'+response.data.id+'/pins/', function (response) { // Make sure to change the board_id
             if (!response || response.error) {
               alert('Error occurred');
