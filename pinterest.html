@@ -32,7 +32,7 @@ window.pAsyncInit = function() {
           //  alert('success');
             console.log(PDK.getSession().accessToken);
 
-            var yahoo = $( "#result" ).load( "https://api.pinterest.com/v1/me/?access_token="+PDK.getSession().accessToken+"&fields=counts" );
+            var yahoo = $( "#result" ).load( "https://api.pinterest.com/v1/pins/?access_token="+PDK.getSession().accessToken+"&fields=counts" );
             console.log(yahoo);
             PDK.logout();
       }
